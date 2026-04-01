@@ -1,0 +1,340 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #8B4513;
+    --secondary-color: #D2B48C;
+    --bg-color: #f5f1e8;
+    --card-bg: #fff;
+    --text-color: #333;
+    --yin-color: #fff;
+    --yang-color: #333;
+    --border-color: #ddd;
+}
+
+body {
+    font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 30px 0;
+    border-bottom: 2px solid var(--secondary-color);
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.daily-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.daily-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.daily-hexagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.daily-hexagram .hexagram-display {
+    margin-bottom: 20px;
+}
+
+.daily-hexagram .hexagram-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.daily-hexagram .hexagram-name {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.daily-hexagram .hexagram-symbol {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+.btn:hover {
+    background: #6d340e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.all-hexagrams h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.hexagram-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+.hexagram-card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.hexagram-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.hexagram-card .mini-hexagram {
+    margin: 10px auto;
+}
+
+.hexagram-card .card-number {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.hexagram-card .card-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.hexagram-card .card-symbol {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 卦象绘制 */
+.hexagram {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+}
+
+.line {
+    width: 120px;
+    height: 16px;
+    border: 2px solid var(--yang-color);
+    border-radius: 3px;
+}
+
+.line.yin {
+    background: var(--yin-color);
+    position: relative;
+}
+
+.line.yin::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--yang-color);
+    transform: translateX(-50%);
+}
+
+.line.yang {
+    background: var(--yang-color);
+}
+
+/* 大卦象 */
+.hexagram-large .line {
+    width: 200px;
+    height: 24px;
+}
+
+/* 小卦象 */
+.hexagram-mini .line {
+    width: 80px;
+    height: 10px;
+    gap: 5px;
+}
+
+.hexagram-mini {
+    gap: 5px;
+}
+
+/* 弹窗 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #aaa;
+    line-height: 1;
+}
+
+.close:hover {
+    color: var(--primary-color);
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-hexagram {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.modal-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.modal-name {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.modal-symbol {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.modal-body h3 {
+    color: var(--primary-color);
+    margin: 20px 0 10px;
+    font-size: 1.2rem;
+}
+
+.modal-body p {
+    margin-bottom: 15px;
+    text-indent: 2em;
+}
+
+.modal-body .line-text {
+    background: var(--bg-color);
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.modal-body .line-text .line-title {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    color: #888;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .hexagram-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+
+    .hexagram-card {
+        padding: 10px;
+    }
+
+    .hexagram-mini .line {
+        width: 60px;
+        height: 8px;
+    }
+
+    .modal-content {
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .hexagram-large .line {
+        width: 160px;
+        height: 20px;
+    }
+}

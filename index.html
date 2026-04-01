@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>易经六十四卦 - 每日一卦</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>易经六十四卦</h1>
+            <p class="subtitle">每日一卦，慎终追远</p>
+        </header>
+
+        <section class="daily-section">
+            <h2>今日卦象</h2>
+            <div id="daily-hexagram" class="daily-hexagram"></div>
+            <button id="refresh-daily" class="btn">重新起卦</button>
+        </section>
+
+        <section class="all-hexagrams">
+            <h2>六十四卦列表</h2>
+            <div id="hexagram-grid" class="hexagram-grid"></div>
+        </section>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>易经 • 群经之首，大道之源</p>
+        </footer>
+    </div>
+
+    <script src="hexagrams.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
