@@ -9,19 +9,32 @@
 <body>
     <div class="container">
         <header>
-            <h1>易经六十四卦</h1>
-            <p class="subtitle">每日一卦，慎终追远</p>
+            <div class="header-top">
+                <h1>易经六十四卦</h1>
+                <button id="theme-toggle" class="theme-btn" title="切换深色模式">🌓</button>
+            </div>
+            <p class="subtitle">群经之首，大道之源</p>
         </header>
 
         <section class="daily-section">
             <h2>今日卦象</h2>
             <div id="daily-hexagram" class="daily-hexagram"></div>
-            <button id="refresh-daily" class="btn">重新起卦</button>
+            <div class="daily-actions">
+                <button id="refresh-daily" class="btn btn-primary">重新起卦</button>
+            </div>
         </section>
 
         <section class="all-hexagrams">
-            <h2>六十四卦列表</h2>
+            <div class="section-header">
+                <h2>六十四卦列表</h2>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="搜索卦名...">
+                </div>
+            </div>
             <div id="hexagram-grid" class="hexagram-grid"></div>
+            <div id="no-result" class="no-result" style="display: none;">
+                <p>没有找到匹配的卦象</p>
+            </div>
         </section>
 
         <div id="modal" class="modal">
@@ -32,7 +45,7 @@
         </div>
 
         <footer>
-            <p>易经 • 群经之首，大道之源</p>
+            <p>易经 • 天行健，君子以自强不息；地势坤，君子以厚德载物</p>
         </footer>
     </div>
 
