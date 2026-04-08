@@ -36,7 +36,7 @@ function openModal(hexagram) {
                 ${renderHexagram(hexagram.lines, 'large')}
             </div>
             <div class="modal-title">${hexagram.id}．${hexagram.name}</div>
-            <div class="modal-symbol">${hexagram.symbol}</div>
+            <div class="modal-name">${hexagram.symbol}</div>
         </div>
         <h3>卦辞</h3>
         <p><strong>${hexagram.judgment}</strong></p>
@@ -154,6 +154,56 @@ function initSearch() {
     });
 }
 
+// 起卦仪式 - 随机抽卦动画
+function divineRitual(container) {
+    // 显示起卦中...
+    container.innerHTML = `
+        <div class="divine-ritual">
+            <div class="ritual-text">正在起卦...</div>
+            <div class="ritual-loading">
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            </div>
+            <p class="ritual-desc">静心祈愿，静待神明示...</p>
+        </div>
+    `;
+    
+    // 随机翻转几个卦，营造仪式感
+    let count = 0;
+    const totalFlips = 8 + Math.floor(Math.random() * 8); // 8-16 次翻转
+    const interval = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * 64);
+        const temp = HEXAGRAMS[randomIndex];
+        container.querySelector('.divine-ritual').insertBefore(
+            renderHexagram(temp.lines, 'large'), 
+            container.querySelector('.ritual-text')
+        );
+        count++;
+        if (count >= totalFlips) {
+            clearInterval(interval);
+            setTimeout(() => {
+                // 得到最终结果
+                const randomIndex = Math.floor(Math.random() * 64);
+                const hexagram = HEXAGRAMS[randomIndex];
+                let html = `
+                    <div class="hexagram-display divine-complete">
+                        ${renderHexagram(hexagram.lines, 'large')}
+                    </div>
+                    <div class="result-text">恭喜您得到：</div>
+                    <div class="hexagram-title">${hexagram.id}．${hexagram.name}</div>
+                    <div class="hexagram-name">${hexagram.symbol}</div>
+                    <div class="hexagram-judgment"><strong>卦辞：</strong>${hexagram.judgment}</div>
+                    <div class="hexagram-explanation">${hexagram.explanation}</div>
+                    ${hexagram.interpretation ? `<div class="hexagram-interpretation">${hexagram.interpretation}</div>` : ''}
+                    <button class="btn btn-primary" onclick="openModal(HEXAGRAMS[${hexagram.id - 1}])">查看完整详解</button>
+                `;
+                container.innerHTML = html;
+            }, 600);
+        }
+    }, 200);
+}
+
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
@@ -178,24 +228,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // 重新起卦按钮 - 这里改为随机抽取一卦
+    // 重新起卦按钮 - 增加仪式感
     document.getElementById('refresh-daily').addEventListener('click', () => {
-        const randomIndex = Math.floor(Math.random() * 64);
         const container = document.getElementById('daily-hexagram');
-        const hexagram = HEXAGRAMS[randomIndex];
-        
-        let html = `
-            <div class="hexagram-display">
-                ${renderHexagram(hexagram.lines, 'large')}
-            </div>
-            <div class="hexagram-title">${hexagram.id}．${hexagram.name}</div>
-            <div class="hexagram-name">${hexagram.symbol}</div>
-            <div class="hexagram-judgment"><strong>卦辞：</strong>${hexagram.judgment}</div>
-            <div class="hexagram-explanation">${hexagram.explanation}</div>
-            ${hexagram.interpretation ? `<div class="hexagram-interpretation">${hexagram.interpretation}</div>` : ''}
-            <button class="btn btn-primary" onclick="openModal(HEXAGRAMS[${hexagram.id - 1}])">查看完整详解</button>
-        `;
-        
-        container.innerHTML = html;
+        divineRitual(container);
     });
 });

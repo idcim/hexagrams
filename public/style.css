@@ -647,4 +647,81 @@ footer {
     }
 }
 
+/* 起卦仪式 */
+.divine-ritual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 0;
+}
+
+.ritual-text {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.ritual-desc {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+.ritual-loading {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    animation: loadingPulse 1.4s ease-in-out infinite both;
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes loadingPulse {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.divine-complete {
+    animation: scaleIn 0.6s ease-out backwards;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.result-text {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
